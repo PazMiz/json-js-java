@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>update</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+</head>
+<body>
+    pet name<input id="petName">
+    pet legs numbers<input id="legs">
+    pet favorite food<input id="favoriteFood">
+
+    <input type="button" style="color: crimson;" onclick="addNewPet();return false;" value="Add"/>
+    <br>
+    <input type="button" style="color: cornflowerblue;" onclick="updPet();return false;"value="Update Pets"/>
+    <br>
+    <input type="button" style="color: blue;" onclick="getPet();return false;" value="get the pets info"/>
+    <div id="display"></div>
+    <script>
+        // Read
+        const getPet = async () => {
+            const res = await axios.get('http://localhost:3000/animals')
+            document.getElementById("display").innerHTML = res.data.map(animals => `<input type="button" onclick="delPet(${animals.id});return false;" value="Del - ${animals.id}"/> name: ${animals.petName}, Id: ${animals.id},Legs: ${animals.legs} Favorite Food: ${animals.favoriteFood}<br>`).join('')
+        }
+        // Create
+        const addNewPet = async () => {
+            await axios.post('http://localhost:3000/animals', { petName: petName.value, legs: legs.value, favoriteFood: favoriteFood.value})
+            await getPet();
+        }
+        // update
+        const updPet = async () => {
+            try {
+                // Send PUT request to update animals data
+                const res = await axios.put('http://localhost:3000/animals', { petName: "animals", legs: "" , favoriteFood: "" });
+
+                // Update the display with the updated data
+                const petname = document.getElementById('petName').value;
+                document.getElementById("display").innerHTML = res.data.map(animals => `<input type="button" onclick="delPet(${animals.id});return false;" value="Del - ${animals.id}"/> name: ${animals.petName}, Id: ${animals.id}, Legs: ${animals.legs} Favorite Food: ${animals.favoriteFood}<br>`).join('');
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        // delete
+        const delPet = async (id) => {
+            await axios.delete(`http://localhost:3000/animals/${id}`);
+            await getPet();
+        }
+    </script>
+</body>
+</html>

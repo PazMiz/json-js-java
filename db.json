@@ -1,0 +1,34 @@
+{
+  "animals": [
+    {
+      "id": 1,
+      "petName": "Linoy",
+      "legs": "4",
+      "favoriteFood": "Sushi"
+    },
+    {
+      "id": 2,
+      "petName": "penguin",
+      "legs": "2",
+      "favoriteFood": "Fish"
+    },
+    {
+      "id": 3,
+      "petName": "Paz",
+      "legs": "2",
+      "favoriteFood": "Hamburger"
+    },
+    {
+      "petName": "gorila",
+      "legs": "2",
+      "favoriteFood": "pepole",
+      "id": 4
+    },
+    {
+      "petName": "Tiger",
+      "legs": "4",
+      "favoriteFood": "evreyone",
+      "id": 5
+    }
+  ]
+}
